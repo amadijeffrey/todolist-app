@@ -13,6 +13,7 @@ router.get("/", (req,res)=>{
     })
 })
 router.post("/", (req,res)=>{
+    console.log(req.body)
     db.Todo.create(req.body)
     .then((newTodo)=>{
         res.json(newTodo)
