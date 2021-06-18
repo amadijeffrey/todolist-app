@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,29 +9,34 @@
     <link rel="stylesheet" href="/style.css">
 
 </head>
+
 <body>
-    <div class="container">
-   
+    <div class="container-fluid">
+
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 list">
                 <header>
-                <h2>My Todo<span>list</span> App</h2>  
-            </header>
+                    <h2>My To-dolist App</h2>
+                    <h3>Schedule tasks for <%=new Date().toDateString()%>
+                    </h3>
+                </header>
                 <div class="form-group">
-                    <input class="form-control"type="text" placeholder="Enter a task here.." name="username">
+                    <input class="form-control" type="text" placeholder="Enter a task here.." name="name">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary">Add</button>
                 </div>
-               <ul class="list-group">
-        
-               </ul>  
-            
-           </div>
+                <ul class="list-group">
+
+                </ul>
+
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-3"></div>
         </div>
-   
-   <script src="/script.js"></script>
+       
+
+    </div>
+
+    <script src="/script.js"></script>
 </body>

@@ -1,8 +1,12 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://jeffrey:practice@cluster0.e1p5z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+const dotenv = require("dotenv").config()
+mongoose.set('useFindAndModify', false);
+
+mongoose.connect(process.env.DBURL,
 { useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log('connection successfull')})
 
 mongoose.Promise = Promise 
+module.exports.User = require("./user")
 module.exports.Todo = require("./todo")

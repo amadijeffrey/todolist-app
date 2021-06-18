@@ -1,35 +1,33 @@
 const ul = document.querySelector("ul")
 const button = document.querySelector("button")
-let isNewtodo = false; 
+let isNewtodo = false;
 
 
-fetch("/api/todos").then((response) => {
-    return response.json()
-}).then((data) => { console.log(data) })
+onPageload()
 
 button.addEventListener("click", () => {
     createTodo()
 
 })
 
-
-
 function addTodos(todos) {
-
     todos.forEach(todo => {
         addTodo(todo)
     });
+    checkNewTodo()
+
 }
 
 function addTodo(todo) {
-    if(todo.completed){
-        const newtodo = "<li class='completed'>" + todo.name + "<span>X</span</li>"
-    }else{
-        const newtodo = "<li class='>" + todo.name + "<span>X</span</li>"
-
-    }
     
+    let newtodo;
+    if (todo.completed) {
+        newtodo = `<li class='completed' data-completed=${todo.completed} data-id=${todo._id}> ${todo.name} <i class="fa-solid fa-check"></i><span>X</span</li>`
+    } else {
+        newtodo = `<li  data-id=${todo._id} data-completed=${todo.completed} >  ${todo.name}<i class="fa-solid fa-check"></i> <span>X</span</li>`
+    }
     ul.insertAdjacentHTML("beforeend", newtodo)
+    isNewtodo = true
 }
 
 function createTodo() {
@@ -38,24 +36,67 @@ function createTodo() {
 
     fetch("/api/todos", {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+          },
         body: JSON.stringify(data),
-
     }).then(response => {
         return response.json()
 
+    }).then((newTodo) => {
+        addTodo(newTodo)
+        document.querySelector("input").value = " "
     })
-        .then((newTodo) => {
-            //  newTodo ? JSON.parse(newTodo):{} 
-            console.log(newTodo)
-
-        })
 
 }
- async function fetchTodosfromApi(){
-    await fetch("/api/todos")
+
+function removeTodo(span) {
+ const id = span.parentElement.dataset.id;
+ const url = `api/todos/${id}`
+    fetch(url, {
+        method: 'DELETE',
+    }).then(response => {
+        return response.json()
+
+    }).then((removedtodo) => {
+       ul.removeChild(span.parentElement)
+    }) 
+}
+function updateTodo(todo){
+ const id = todo.dataset.id
+ let isCompleted = todo.dataset.completed
+ console.log(isCompleted)
+}
+
+async function onPageload() {
+    await addTodostoPage()
+   
+}
+async function addTodostoPage() {
+    const todos = await fetchTodosfromApi()
+    addTodos(todos)
+}
+async function fetchTodosfromApi() {
+    const response = await fetch("/api/todos")
     return response.json()
- }
- async function addTodotoPage(){
-     await fetchTodosfromApi()
-     addTodos(todos)
- }
+
+}
+
+function checkNewTodo(){
+    if (isNewtodo) {
+        let span = document.querySelectorAll('span')
+        span.forEach(spann => {
+            spann.addEventListener('click', function(){
+                removeTodo(this)
+            })
+        })
+        let liArray = document.querySelectorAll('li')
+        
+        liArray.forEach(li =>{
+            li.addEventListener('click', function(){
+                updateTodo(this)
+            })
+        })
+    }
+}
+

@@ -12,19 +12,40 @@ h2{
 h3{
     text-align: center;
 }
+ul{
+    list-style-type: none;
+}
+h4{
+    text-align: center;
+}
 .col-md-6{
-    margin: 15% auto;
+    margin: 13% auto;
     
+}
+.list{
+    margin: 10% auto;
+    
+}
+.completed{
+    text-decoration: line-through;
+    background-color: rgb(114, 109, 109);
 }
 .contain{
     background-color: lightgray;
     padding: 10px;
     opacity:0.7
 }
+i{
+    color:green;
+    margin-left: 5px;
+}
 span{
     font-weight: bold;
-    font-size: 40px;
-    color:red
+    font-size: 17px;
+    color:red;
+    float:right;
+    visibility: hidden;
+    padding-right:10px;
 }
 .form-control{
 border:none;
@@ -32,10 +53,17 @@ border-bottom:2px solid black
 }
 
 li{
+    margin-bottom: 10px;
     height: 30px;
     padding-left: 20px;
+    padding-top: 3px;
+    background-color: white;
+    border-radius: 3px;
 }
 li:hover{
  cursor: pointer;
 background-color: lightgray;
 }
+li:hover span{ 
+ visibility:visible;
+   }

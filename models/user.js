@@ -5,7 +5,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const userSchema = new mongoose.Schema({
     username : {
         type:String,
-        validate:true
+        required:true
     },
     password:String,
     todos:[
@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
 
 })
 
+userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User", userSchema)
-User.plugin(passportLocalMongoose);
 
-module.exports = Todo
+
+module.exports = User
