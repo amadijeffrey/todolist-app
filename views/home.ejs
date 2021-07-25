@@ -11,28 +11,31 @@
     
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-6">
-                    <h2>A list of all your task organized in order of priority</h2>
+                <div class="col-md-3.5"></div>
+                <div class="col-md-5">
+                    <h1>My To-do list App </h1>
+                   <h5> A list of all your task organized in order of priority</h5>
                     <h4>  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Sign In</button>
                     to access your personalized to-do space</h4>
                     <div id="demo" class="collapse">
                         <form action="/login" method="POST">
                             <div class="form-group">
-                                <input class="form-control"type="text" placeholder="username" name="username">
+                                <label for="basic-url">Username</label>
+                                <input class="form-control"type="text" name="username">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="password" placeholder="password" name="password">
+                                <label for="basic-url">Password</label>
+                                <input class="form-control" type="password" name="password">
                             </div>
                            
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block">Login</button>
                             </div>
-                            <p>Don't have an account?<a href="/register"> Sign up</a></p>
+                            <p  style="font-size: 20px;">Don't have an account?<a href="/register"> Sign up</a></p>
                         </form>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-3.5"></div>
             </div>
         </div>
       

@@ -1,4 +1,5 @@
 var mongoose = require("mongoose")
+const timeZone = require('mongoose-timezone');
 
 const todoSchema = new mongoose.Schema({
     name : {
@@ -14,7 +15,7 @@ const todoSchema = new mongoose.Schema({
         default: Date.now
     }
 })
-
+todoSchema.plugin(timeZone)
 const Todo = mongoose.model("Todo", todoSchema)
 
 module.exports = Todo

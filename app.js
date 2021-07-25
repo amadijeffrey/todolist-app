@@ -16,7 +16,7 @@ app.use(express.static('public'));
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true}));
 app.use(expressSession({
-    secret:"fashion",
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:false 
 }))
@@ -40,10 +40,12 @@ app.get("/register", (req,res)=>{
     res.render('register')
 })
 app.post("/register",function(req,res){
-    console.log('o' ,req.body, 'ok')
     User.register(new User({username:req.body.username}),req.body.password, function(err,user){
         if(err){
-           return  res.redirect("/register")
+            console.log(err.message)
+
+            res.redirect("/register", )
+           
         }
         passport.authenticate("local")(req,res,function(){
              res.redirect('/index');
@@ -57,7 +59,7 @@ app.get("/index", isLoggedIn, (req,res)=>{
 
 app.post("/login",passport.authenticate("local",{
     successRedirect:"/index",
-    failureRedirect:"/login"
+    failureRedirect:"/"
    })
 )
 
@@ -69,6 +71,7 @@ function isLoggedIn(req, res, next) {
     }
 }
 
-app.listen(8080, ()=>{
+let port =  process.env.PORT || 8080
+app.listen(port ,()=>{
     console.log("todos app is running...")
 })

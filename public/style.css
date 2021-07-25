@@ -3,40 +3,64 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+h1{
+    font-weight:bold ;
+    margin-bottom: 7px;
+    text-align: center;
+}
 
 h2{
     text-align: center;
 
 }
+h5{
+    text-align: center;
+    margin-bottom: 30px;
+}
 h3{
     text-align: center;
+    font-weight: bold;
 }
 ul{
     list-style-type: none;
 }
 h4{
     text-align: center;
+    margin-bottom: 20px;
 }
-.col-md-6{
-    margin: 13% auto;
+.collapse{
+    background-color:lightgrey;
+    padding:9px;
+    border-radius: 5px;
+}
+.col-md-5{
+    margin: 9% auto;
     
 }
 .list{
     margin: 10% auto;
     
 }
+.visible{
+    visibility: visible;
+}
 .completed{
     text-decoration: line-through;
-    background-color: rgb(114, 109, 109);
+    background-color: rgb(148, 143, 143);
+    color:white;
 }
 .contain{
-    background-color: lightgray;
+    border-radius: 3px;
+    background-color: rgb(247, 242, 242);
     padding: 10px;
-    opacity:0.7
+    opacity:0.7;
+    margin-top: 10%;
+    height: 350px;
 }
+
 i{
     color:green;
+    visibility: hidden;
     margin-left: 5px;
 }
 span{
@@ -48,17 +72,19 @@ span{
     padding-right:10px;
 }
 .form-control{
-border:none;
 border-bottom:2px solid black
 }
-
+.form-control:focus{
+    outline: none;
+}
 li{
     margin-bottom: 10px;
     height: 30px;
     padding-left: 20px;
     padding-top: 3px;
     background-color: white;
-    border-radius: 3px;
+    border-radius: 6px;
+    box-shadow: 3px 5px 5px rgb(99, 107, 116);
 }
 li:hover{
  cursor: pointer;
@@ -67,3 +93,5 @@ background-color: lightgray;
 li:hover span{ 
  visibility:visible;
    }
+
+  
