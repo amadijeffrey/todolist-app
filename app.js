@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const bodyParser = require('body-parser')
 const todoRoutes = require("./routes/todos")
 const db = require("./models")
+const flash = require("connect-flash")
 const expressSession = require('express-session')
 const dotenv = require("dotenv").config()
 const passport = require('passport')
@@ -11,9 +12,11 @@ const LocalStrategy = require('passport-local')
 const passportLocalMongoose = require('passport-local-mongoose')
 const User = require('./models/user')
 
+
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.use(express.json()); 
+app.use(flash())
 app.use(express.urlencoded({extended: true}));
 app.use(expressSession({
     secret:process.env.SECRET,
@@ -25,9 +28,11 @@ app.use(passport.session())
 passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
-// app.use(function(req,res,next){
-//     next()
-// })
+app.use(function(req,res,next){
+    res.locals.error = req.flash('error')
+    res.locals.success =req.flash('success')
+    next()
+})
 app.use('/api/todos', todoRoutes)
 
 
@@ -42,13 +47,14 @@ app.get("/register", (req,res)=>{
 app.post("/register",function(req,res){
     User.register(new User({username:req.body.username}),req.body.password, function(err,user){
         if(err){
-            console.log(err.message)
-
-            res.redirect("/register", )
+            req.flash("error", err.message)
+             res.redirect("/register", )
            
         }
         passport.authenticate("local")(req,res,function(){
-             res.redirect('/index');
+            req.flash("success", `Welcome `)
+            res.redirect('/index')
+            
             })
 
     })

@@ -13,6 +13,11 @@
 <body style="background-image: url('https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80');">
     <div class="container-fluid">
 
+        <%if(success && success.length>0){%>
+            <div class="alert alert-success" role="alert">
+                <%=success%>
+          </div>
+         <% }%>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 list">

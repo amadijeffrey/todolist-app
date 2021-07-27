@@ -1,4 +1,4 @@
-
+const db = require("../models")
 
 function findTodos(req,res){
     db.User.findById(req.user._id).populate('todos').exec()

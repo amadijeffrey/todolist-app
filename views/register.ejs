@@ -11,10 +11,18 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 
-<body style="background-color:blue !important;"> 
+<body > 
+
+    <div class="container">
+        <% if(error && error.length>0){%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+              </div>
+          <%}%>
+         
  
        
-    <div class="container">
+ 
         <div class="row">
             <div class="col-md-4"> </div>
             <div class=" contain col-md-4">

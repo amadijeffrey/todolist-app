@@ -51,8 +51,10 @@ function createTodo() {
     }).then((newTodo) => {
         addTodo(newTodo)
         document.querySelector("input").value = " "
-        let local = moment.utc(newTodo.created_date);
-        setTimeout(isTodoCompleted(),4*60*60*1000,local,newTodo)
+        console.log(newTodo.created_date)
+        let local = moment.utc(newTodo.created_date).getTime();
+        console.log(local)
+        // setTimeout(isTodoCompleted(),4*60*1000,local,newTodo)
         checkNewTodo()
      
     
@@ -126,8 +128,8 @@ function checkNewTodo(){
     }
 }
 
-function isTodoCompleted(time,todo){
-    const oldTime = new Date(time.setHours(time.getHours() + 4)).toLocaleTimeString()
+function isTodoCompleted(todo){
+    const oldTime = new Date(time.getTime()+ 4*60*1000).toLocaleTimeString()
     const presentTime = new Date().toLocaleTimeString();
   if(oldTime==presentTime && !(todo.completed)){
       alert(`You have a pending task: ${todo.name}`)
