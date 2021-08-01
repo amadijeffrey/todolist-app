@@ -89,6 +89,26 @@ li{
     border-radius: 6px;
     box-shadow: 3px 5px 5px rgb(99, 107, 116);
 }
+.animated{
+    -webkit-animation-duration: 5s;animation-duration: 5s;
+    -webkit-animation-fill-mode: both;animation-fill-mode: both
+
+}
+@-webkit-keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+ }
+ 
+ .fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+
+ }
+ @keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+ }
+
 li:hover{
  cursor: pointer;
 background-color: lightgray;
@@ -97,4 +117,5 @@ li:hover span{
  visibility:visible;
    }
 
-  
+ 
+

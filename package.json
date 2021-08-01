@@ -24,7 +24,9 @@
     "request": "^2.88.2",
     "util": "^0.12.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^16.0.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
