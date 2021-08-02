@@ -21,7 +21,7 @@ app.post("/register", function (req, res) {
 
         }
         passport.authenticate("local")(req, res, function () {
-            req.flash("success", `Welcome${user.name}`)
+            req.flash("success", `Welcome ${user.username}`)
             res.redirect('/index')
 
         })

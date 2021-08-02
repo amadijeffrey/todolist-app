@@ -2,7 +2,9 @@ const ul = document.querySelector("ul")
 const button = document.querySelector("button")
 const input = document.querySelector('input')
 let isNewtodo = false;
-const Todos = {}
+const Todos = {
+         
+}
 
 
 onPageload()
@@ -19,7 +21,15 @@ input.addEventListener('keypress', (e) => {
 function addTodos(todos) {
     todos.forEach(todo => {
         addTodo(todo)
+        if(!todo.completed){
+            Todos[todo._id] =  {
+                createdTime: Date.parse(todo.created_date),
+                name: todo.name
+            }
+        }
+       
     });
+    window.localStorage["data"] = JSON.stringify(Todos)
     checkNewTodo()
 
 }
@@ -54,17 +64,14 @@ function createTodo() {
         document.querySelector("input").value = " "
         checkNewTodo()
         createTodoDetail(newTodo)
-        console.log(Todos)
-        if(!window.localStorage.getItem("data")){
-            window.localStorage["data"] = JSON.stringify(Todos)
-        }
-        // setTimeout(isTodoCompleted,2*60*1000,newTodo)
+        window.localStorage["data"] = JSON.stringify(Todos)
     })
 
 }
 
 function removeTodo(span) {
     const id = span.parentElement.dataset.id;
+    deleteTodoFromLocalStorage(id)
     const url = `api/todos/${id}`
     fetch(url, {
         method: 'DELETE',
@@ -72,16 +79,14 @@ function removeTodo(span) {
         return response.json()
 
     }).then((removedtodo) => {
-        ul.removeChild(span.parentElement)
         span.parentElement.classList.toggle('animated')
-        span.parentElement.classList.toggle('fadeOut')
-
+        span.parentElement.remove()
     })
 }
 function updateTodo(todo) {
     const id = todo.dataset.id;
     const url = `api/todos/${id}`;
-    isCompleted = !(eval(todo.dataset.completed))
+    const isCompleted = !todo.dataset.completed
 
     fetch(url, {
         method: "PUT",
@@ -96,8 +101,15 @@ function updateTodo(todo) {
         todo.classList.toggle('completed')
         let i = todo.children[0]
         i.classList.toggle("visible")
-        window.localStorage[updatedTodo._id][status] = JSON.stringify(updatedTodo.completed)
+        deleteTodoFromLocalStorage(updatedTodo._id)
     })
+}
+
+function deleteTodoFromLocalStorage (id) {
+    const data = JSON.parse(localStorage.getItem('data'))
+    delete data[id]
+
+    localStorage.setItem('data', JSON.stringify(data))
 }
 
 async function onPageload() {
@@ -107,6 +119,7 @@ async function onPageload() {
 async function addTodostoPage() {
     const todos = await fetchTodosfromApi()
     addTodos(todos)
+    
 }
 async function fetchTodosfromApi() {
     const response = await fetch("/api/todos")
@@ -121,6 +134,7 @@ function checkNewTodo() {
             spann.addEventListener('click', function (e) {
                 removeTodo(this)
                 e.stopPropagation()
+
             })
         })
         let liArray = document.querySelectorAll('li')
@@ -133,26 +147,21 @@ function checkNewTodo() {
     }
 }
 
-// setInterval(function(){
-//     const returnedTodo = JSON.parse(window.localStorage['data'])
-//         const presentTime = new Date().getTime();
-//     for (const todo of Object.keys(returnedTodo)){
-//         if( returnedTodo[todo][status] == true){
-//             return returnedTodo[todo]
-//         }
-//     }
-// }, 1* 60* 1000)
-// -+  const oldTime = Date.parse(todo.created_date) + 2 * 60 * 1000
-//     if (presentTime >= oldTime && !todo.completed) {
-
-//     }
+setInterval(function(){
+    const returnedTodo = JSON.parse(window.localStorage['data'])
+        const presentTime = new Date().getTime();
+    for (const todoId of Object.keys(returnedTodo)){
+        if( presentTime >= returnedTodo[todoId].createdTime +  20* 60* 1000){
+            alert(`You have a pending task: ${returnedTodo[todoId].name}`)
+        }
+    }
+}, 20* 60* 1000)
 
 
 
 function createTodoDetail(todo) {
     Todos[todo._id] =  {
         createdTime: Date.parse(todo.created_date),
-        status: todo.completed,
-        
+        name: todo.name
     }
 }
