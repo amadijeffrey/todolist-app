@@ -13,7 +13,8 @@ const todoSchema = new mongoose.Schema({
     created_date : {
         type: Date,
         default: Date.now
-    }
+    },
+    expiryTime: Number
 })
 todoSchema.plugin(timeZone)
 const Todo = mongoose.model("Todo", todoSchema)

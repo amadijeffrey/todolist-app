@@ -49,4 +49,4 @@ function deleteTodos(req,res){
     })
 }
 
-module.exports = {findTodos,createTodos,updateTodos,deleteTodos}
+module.exports = {findTodos, createTodos, updateTodos, deleteTodos}

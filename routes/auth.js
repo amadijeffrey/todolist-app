@@ -14,7 +14,7 @@ app.get("/register", (req, res) => {
 })
 
 app.post("/register", function (req, res) {
-    User.register(new User({ username: req.body.username }), req.body.password, function (err, user) {
+    User.register({ username: req.body.username }, req.body.password, function (err, user) {
         if (err) {
             req.flash("error", err.message)
             res.redirect("/register",)

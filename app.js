@@ -2,13 +2,13 @@ const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
 const bodyParser = require('body-parser')
-const db = require("./models")
 const flash = require("connect-flash")
 const expressSession = require('express-session')
 const dotenv = require("dotenv").config()
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const passportLocalMongoose = require('passport-local-mongoose')
+
 const todoRoutes = require("./routes/todos")
 const authRoute = require('./routes/auth')
 const User = require('./models/user')
@@ -17,9 +17,9 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-app.set("view engine", "ejs");
-app.use(express.static('public'));
-app.use(express.json()); 
+app.set("view engine", "ejs")
+app.use(express.static('public'))
+app.use(express.json())
 app.use(flash())
 app.use(express.urlencoded({extended: true}));
 app.use(expressSession({
