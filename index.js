@@ -37,9 +37,14 @@ app.use(function(req,res,next){
 })
 app.use(authRoute)
 
+app.get('/health', (req, res) => {
+    res.send({message: 'okay'})
+})
+
 
 
 let port =  process.env.PORT || 8080
 app.listen(port ,()=>{
     console.log("todos app is running...")
 })
+
